@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mall.order.mapper.ShopCarMapper">
+	<sql id="Base_Column_List">
+		n.id, n.create_time, n.update_time, n.creator, n.updater,
+		n.isdelete, n.iseffect,
+		n.news_name,n.news_code,n.price,n.descr,n.amount,n.userid,n.producer,n.classify_code,n.old_price
+	</sql>
+	<sql id="car_news">
+	   n.create_time, n.update_time, n.creator, n.updater,
+		n.isdelete, n.iseffect,
+		n.news_name,n.news_code,n.price,n.descr,n.amount,n.userid,n.producer,n.classify_code,n.old_price
+	</sql>
+	<resultMap id="BaseResultMap" type="mall.goods.model.ProductModel">
+		<result column="id" property="id" />
+		<result column="create_time" property="createtime" />
+		<result column="update_time" property="updatetime" />
+		<result column="creator" property="creator" />
+		<result column="updater" property="updater" />
+		<result column="isdelete" property="isdelete" />
+		<result column="iseffect" property="iseffect" />
+		<result column="news_name" property="newsName" />
+		<result column="news_code" property="code" />
+		<result column="price" property="price" />
+		<result column="descr" property="descr" />
+		<result column="amount" property="amount" />
+		<result column="userid" property="userid" />
+		<result column="producer" property="producer" />
+		<result column="classify_code" property="classifyCode" />
+		<result column="old_price" property="oldPrice" />
+		<result column="url" property="url" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and n.id = #{id}
+			</if>
+			<if test="createtime != null and createtime != ''">
+				and n.create_time = #{createtime}
+			</if>
+			<if test="updatetime != null and updatetime != ''">
+				and n.update_time = #{updatetime}
+			</if>
+			<if test="creator != null">
+				and n.create_by = #{creator}
+			</if>
+			<if test="updater != null">
+				and n.updater = #{updater}
+			</if>
+			<if test="isdelete != null">
+				and n.isdelete = #{isdelete}
+			</if>
+			<if test="iseffect != null">
+				and n.iseffect = #{iseffect}
+			</if>
+			<if test="newsName != null and newsName != ''">
+				and n.news_name = #{newsName}
+			</if>
+			<if test="code != null and code != ''">
+				and n.news_code = #{code}
+			</if>
+			<if test="price != null and price !=''">
+				and n.price = #{price}
+			</if>
+			<if test="descr != null and descr != ''">
+				and n.descr = #{descr}
+			</if>
+			<if test="amount != null and amount !=0">
+				and n.amount = #{amount}
+			</if>
+			<if test="userid != null and userid != ''">
+				and n.userid = #{userid}
+			</if>
+			<if test="producer != null and producer !=''">
+				and n.producer = #{producer}
+			</if>
+			<if test="classifyCode != null and classifyCode != ''">
+				and n.classify_code = #{classifyCode}
+			</if>
+			<if test="oldPrice != null and oldPrice !=''">
+				and n.old_price = #{oldPrice}
+			</if>
+		</trim>
+	</sql>
+	<!-- 查询商品 -->
+	<select id="selectNews" resultMap="BaseResultMap" parameterType="Object">
+		select distinct
+		<include refid="Base_Column_List" />
+		,(select p.url from yin_mall.mall_news_picture p where n.news_code =
+		p.news_code and p.type=#{type} )url
+		from yin_mall.mall_news n left join yin_mall.mall_news_picture p on
+		n.news_code = p.news_code
+		<include refid="Example_Where_Clause"/>
+	</select>
+	<!-- 购物车操作 -->
+	<sql id="Base_Column_CarList">
+		c.id,c.news_code,c.userid,c.car_count,c.subtotal_price,c.total_Price
+	</sql>
+	<resultMap id="BaseCarResultMap" type="mall.order.model.ShopCarModel">
+		<result column="id" property="id" />
+		<result column="create_time" property="createtime" />
+		<result column="update_time" property="updatetime" />
+		<result column="creator" property="creator" />
+		<result column="updater" property="updater" />
+		<result column="isdelete" property="isdelete" />
+		<result column="iseffect" property="iseffect" />
+		<result column="news_name" property="newsName" />
+		<result column="news_code" property="code" />
+		<result column="price" property="price" />
+		<result column="descr" property="descr" />
+		<result column="amount" property="amount" />
+		<result column="userid" property="userid" />
+		<result column="producer" property="producer" />
+		<result column="classify_code" property="classifyCode" />
+		<result column="old_price" property="oldPrice" />
+		<result column="url" property="url" />
+		<result column="car_count" property="carCount" />
+		<result column="subtotal_price" property="subtotalPrice" />
+		<result column="total_Price" property="totalPrice" />
+	</resultMap>
+	<sql id="Example_Where_CarClause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and c.id = #{id}
+			</if>
+			<if test="createtime != null and createtime != ''">
+				and c.create_time = #{createtime}
+			</if>
+			<if test="updatetime != null and updatetime != ''">
+				and c.update_time = #{updatetime}
+			</if>
+			<if test="creator != null">
+				and c.create_by = #{creator}
+			</if>
+			<if test="updater != null">
+				and c.updater = #{updater}
+			</if>
+			<if test="isdelete != null">
+				and c.isdelete = #{isdelete}
+			</if>
+			<if test="iseffect != null">
+				and c.iseffect = #{iseffect}
+			</if>
+			<if test="newsName != null and newsName != ''">
+				and c.news_name = #{newsName}
+			</if>
+			<if test="code != null and code != ''">
+				and c.news_code = #{code}
+			</if>
+			<if test="price != null and price !=''">
+				and c.price = #{price}
+			</if>
+			<if test="descr != null and descr != ''">
+				and c.descr = #{descr}
+			</if>
+			<if test="amount != null and amount !=0">
+				and c.amount = #{amount}
+			</if>
+			<if test="userid != null and userid != ''">
+				and c.userid = #{userid}
+			</if>
+			<if test="producer != null and producer !=''">
+				and c.producer = #{producer}
+			</if>
+			<if test="classifyCode != null and classifyCode != ''">
+				and c.classify_code = #{classifyCode}
+			</if>
+			<if test="oldPrice != null and oldPrice !=''">
+				and c.old_price = #{oldPrice}
+			</if>
+		</trim>
+	</sql>
+	<insert id="insert" parameterType="Object">
+		insert into
+		yin_mall.mall_shoppingcar(news_code,userid,car_count ,subtotal_price,total_Price)
+		values
+		(#{code},#{userid},#{carCount},#{subtotalPrice},#{totalPrice})
+	</insert>
+	<!-- 查询购物车对应的商品信息 -->
+	<select id="select" resultMap="BaseCarResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_CarList" />,
+		<include refid="car_news"/>,
+		(select p.url from yin_mall.mall_news_picture p where p.news_code=n.news_code and p.type=#{type}) url
+		from yin_mall.mall_shoppingcar c left join yin_mall.mall_news n on
+		c.news_code=n.news_code
+		<include refid="Example_Where_CarClause"/>
+	</select>
+	<update id="update">
+		UPDATE yin_mall.mall_shoppingcar SET
+		<trim suffixOverrides=",">
+			<if test="updatetime != null and updatetime !='' ">
+				news_code = #{newsCode},
+			</if>
+			<if test="createtime != null and  createtime !='' ">
+				userid = #{userid},
+			</if>
+			<if test="carCount != null ">
+				car_count = #{carCount},
+			</if>
+			<if test="subtotalPrice != null ">
+				subtotal_price = #{subtotalPrice},
+			</if>
+			<if test="totalPrice != null">
+				total_Price = #{totalPrice},
+			</if>
+		</trim>
+		where id = #{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM yin_mall.mall_shoppingcar WHERE id=#{id}
+	</delete>
+<!-- 	购物车商品数 -->
+	<resultMap id="count" type="mall.order.model.ShopCarModel">
+		<result column="count(1)" property="count" />
+   </resultMap>
+	<select id="selectCount" resultMap="count" parameterType="Object">
+	   SELECT count(1) FROM yin_mall.mall_shoppingcar
+	   where userid=#{userid}
+	</select>
+<!--    查询购物车是否含有添加的商品 -->
+	<select id="selectIsHas" resultMap="BaseCarResultMap" parameterType="Object">
+	   SELECT
+	   <include refid="Base_Column_CarList" />
+	    FROM yin_mall.mall_shoppingcar c
+	   	<include refid="Example_Where_CarClause"/>
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

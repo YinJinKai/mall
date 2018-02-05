@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mall.goods.mapper.GoodsMapper">
+<sql id="Base_Column_List">
+		id, create_time, update_time, creator, updater, isdelete, iseffect, 
+		product_name, classify_code, descr,parentcode
+</sql>
+   <resultMap id="BaseResultMap" type="mall.goods.model.GoodsModel">
+		<result column="id" property="id" />
+		<result column="create_time" property="createtime" />
+		<result column="update_time" property="updatetime" />
+		<result column="creator" property="creator" />
+		<result column="updater" property="updater" />
+		<result column="isdelete" property="isdelete" />
+		<result column="iseffect" property="iseffect" />
+		<result column="order_by" property="orderBy" />
+		<result column="product_name" property="product_name" />
+		<result column="classify_code" property="code" />
+		<result column="descr" property="descr" />
+		<result column="parentcode" property="parentcode" />
+	</resultMap>
+<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="createtime != null and createtime != ''">
+				and create_time = #{createtime}
+			</if>
+			<if test="updatetime != null and updatetime != ''">
+				and update_time = #{updatetime}
+			</if>
+			<if test="creator != null">
+				and creator = #{creator}
+			</if>
+			<if test="updater != null">
+				and updater = #{updater}
+			</if>
+			<if test="isdelete != null">
+				and isdelete = #{isdelete}
+			</if>
+			<if test="iseffect != null">
+				and iseffect = #{iseffect}
+			</if>
+			<if test="orderBy != null">
+				and order_by = #{orderBy}
+			</if>
+			<if test="product_name != null and product_name != ''">
+				and product_name like CONCAT('%', #{product_name}, '%')
+			</if>
+			<if test="code != null and code != ''">
+				and classify_code = #{code}
+			</if>
+			<if test="descr != null and descr != ''">
+				and descr like CONCAT('%', #{descr}, '%')
+			</if>
+			<if test="type != null">
+				and type = #{type}
+			</if>
+			<if test="parentcode != null and parentcode != ''">
+				and parentcode = #{parentcode}
+			</if>
+			<if test="orderBy != null ">
+				order_by = #{orderBy},
+			</if>
+		</trim>
+	</sql>
+	<!-- 查询系统用户列表 -->
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="Object"> 
+		select <include refid="Base_Column_List" />
+		from yin_mall.mall_classify
+		<include refid="Example_Where_Clause" />
+<!-- 		where deleted = 0 and state = 1 -->
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+	</select>
+	<insert id="insert" parameterType="Object">
+		INSERT INTO
+		yin_mall.mall_classify(create_time, update_time, creator, updater, isdelete, iseffect,
+		product_name, classify_code, descr,parentcode,order_by)
+		VALUES
+		(#{createtime},#{updatetime},#{creator},#{updater},#{isdelete},#{iseffect},#{product_name},#{code},#{descr},#{parentcode},#{orderBy})
+	</insert>
+	<delete id="delete">
+	DELETE FROM yin_mall.mall_classify WHERE id=#{id}
+	</delete>
+	<update id="update">
+	UPDATE yin_mall.mall_classify SET
+		<trim suffixOverrides=",">
+			<if test="updatetime != null and updatetime !='' ">
+				update_time = #{updatetime},
+			</if>
+			<if test="updater != null and  updater !='' ">
+				updater = #{updater},
+			</if>
+			<if test="isdelete != null and isdelete !=''">
+				isdelete = #{isdelete},
+			</if>
+			<if test="iseffect != null and iseffect !=''">
+				iseffect = #{iseffect},
+			</if>
+			<if test="product_name != null and product_name != ''">
+				product_name = #{product_name},
+			</if>
+			<if test="code != null and code != '' ">
+				classify_code = #{code},
+			</if>
+			
+			<if test="descr != null and descr!=''">
+				descr = #{descr},
+			</if>
+			<if test="parentcode != null and parentcode !='' ">
+				parentcode = #{parentcode},
+			</if>
+			<if test="orderBy != null and orderBy !=''">
+				order_by = #{orderBy},
+			</if>
+		</trim>
+		where id = #{id}
+	
+	
+	</update>
+
+
+
+
+
+
+
+</mapper>

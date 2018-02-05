@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mall.order.mapper.AdressMapper">
+	<resultMap type="mall.order.model.AdressModel" id="UserResult">
+		<result column="address_id" property="id" />
+		<result column="create_time" property="createtime" />
+		<result column="update_time" property="updatetime" />
+		<result column="creator" property="creator" />
+		<result column="updater" property="updater" />
+		<result column="isdelete" property="isdelete" />
+		<result column="iseffect" property="iseffect" />
+		<result column="userid" property="userid" />
+		<result column="telephone" property="telephone" />
+		<result column="province_code" property="provinceCode" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="complete_address" property="completeAddress" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="area" property="area" />
+	</resultMap>
+<sql id="Base_Column_List">
+        address_id,create_time, update_time, creator, updater, isdelete, iseffect, 
+		userid, addressee, telephone,province_code,city_code,area_code,complete_address
+</sql>
+<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and address_id = #{id}
+			</if>
+			<if test="createtime != null and createtime != ''">
+				and create_time = #{createtime}
+			</if>
+			<if test="updatetime != null and updatetime != ''">
+				and update_time = #{updatetime}
+			</if>
+			<if test="creator != null">
+				and create_by = #{creator}
+			</if>
+			<if test="updater != null">
+				and updater = #{updater}
+			</if>
+			<if test="isdelete != null">
+				and isdelete = #{isdelete}
+			</if>
+			<if test="iseffect != null">
+				and iseffect = #{iseffect}
+			</if>
+			<if test="userid != null and userid != ''">
+				and userid = #{userid}
+			</if>
+			<if test="addressee != null and addressee != ''">
+				and addressee = #{addressee}
+			</if>
+			<if test="telephone != null and telephone !=0">
+				and telephone = #{telephone}
+			</if>
+			<if test="provinceCode != null and provinceCode != ''">
+				and province_code = #{provinceCode}
+			</if>
+			<if test="cityCode != null and cityCode !=0">
+				and city_code = #{cityCode}
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				and area_code = #{areaCode}
+			</if>
+			<if test="completeAddress != null and completeAddress !=0">
+				and complete_address = #{completeAddress}
+			</if>
+		</trim>
+	</sql>
+<select id="selectIdAdress" resultMap="UserResult" parameterType="Object">
+select 
+<include refid="Base_Column_List"/>,
+(select mb.name from yin_mall.mall_basicdata mb where mb.basic_code = ms.province_code ) province,
+(select mb.name from yin_mall.mall_basicdata mb where mb.basic_code = ms.city_code) city,
+(select mb.name from yin_mall.mall_basicdata mb where mb.basic_code = ms.area_code) area
+from yin_mall.mall_address ms 
+<include refid="Example_Where_Clause"/>
+</select>
+<insert id="insert">
+  INSERT INTO
+  yin_mall.mall_address(create_time, update_time, creator, updater, isdelete, iseffect, 
+		userid, addressee, telephone,province_code,city_code,area_code,complete_address)
+  VALUES
+  (#{createtime},#{updatetime},#{creator},#{updater},#{isdelete},#{iseffect},#{userid},#{addressee},#{telephone},#{provinceCode}
+  ,#{cityCode},#{areaCode},#{completeAddress})
+</insert>
+<delete id="delete">
+DELETE FROM yin_mall.mall_address WHERE address_id=#{id}
+</delete>
+<update id="update">
+UPDATE yin_mall.mall_address SET
+		<trim suffixOverrides=",">
+			<if test="updatetime != null and updatetime !='' ">
+				update_time = #{updatetime},
+			</if>
+			<if test="createtime != null and  createtime !='' ">
+				create_time = #{createtime},
+			</if>
+			<if test="creator != null and creator !=''">
+				creator = #{creator},
+			</if>
+			<if test="updater != null and  updater !='' ">
+				updater = #{updater},
+			</if>
+			<if test="isdelete != null and isdelete !=''">
+				isdelete = #{isdelete},
+			</if>
+			<if test="iseffect != null and iseffect !=''">
+				iseffect = #{iseffect},
+			</if>
+			<if test="userid != null and userid != ''">
+				userid = #{userid},
+			</if>
+			<if test="addressee != null and addressee != '' ">
+				addressee = #{addressee},
+			</if>
+			
+			<if test="telephone != null and telephone!=''">
+				telephone = #{telephone},
+			</if>
+			<if test="provinceCode != null and provinceCode !='' ">
+				province_code = #{provinceCode},
+			</if>
+			<if test="cityCode != null and cityCode !=''">
+				city_code = #{cityCode},
+			</if>
+			<if test="areaCode != null and areaCode!=''">
+				area_code = #{areaCode},
+			</if>
+			<if test="completeAddress != null and completeAddress !=''">
+				complete_address = #{completeAddress}
+			</if>
+		</trim>
+		where address_id = #{id}
+</update>
+
+
+</mapper>

@@ -1,0 +1,202 @@
+@charset "UTF-8";
+body{
+	margin: 0;
+	padding: 0;
+}
+.box {
+	width: 410px;
+	height: 491px;
+
+	background-color:white;
+	position: absolute;
+	right:383px;
+	top:50px;
+}
+.biao{
+	font-size: 40px;
+	font-weight: bold;
+	line-height: 98px;
+	color:#e93854;
+	font-style: italic;
+}
+.top {
+	width: 410px;
+	height: 83px;
+}
+
+.font {
+	text-align: center;
+	padding: 27px 0 24px;
+	font-size: 24px;
+	color: #e0e0e0;
+}
+
+.line {
+	width: 1px;
+	height: 24px;
+	margin: 0 35px 0 42px;
+	border: 1px solid #e0e0e0;
+}
+
+.under ,.under2{
+	width: 410px;
+	height: 398px;
+	overflow: hidden;
+}
+
+
+.under-in {
+	margin: 0 auto;
+	width: 348px;
+	height: 398px;
+}
+
+.text1 {
+	width: 348px;
+	margin-top: 10px;
+}
+
+.text1 input {
+	border: 1px solid #e0e0e0;
+	width: 348px;
+	height: 48px;
+	line-height: 48px;
+	display: block;
+	    
+}
+
+.text2 {
+	width: 348px;
+	margin-top: 15px;
+}
+
+.text2 input {
+	border: 1px solid #e0e0e0;
+	width: 348px;
+	height: 48px;
+	line-height: 48px;
+	display: block;
+}
+.text3{
+  width:348px;
+  height:48px;
+  margin-top: 15px;
+}
+.yanz1{
+ display:inline-block;
+ }
+.text3 input{
+border: 1px solid #e0e0e0;
+width:150px;
+height:42px;
+line-height: 48px;
+display:inline-block;
+float:right;
+}
+.button {
+	border: 0 none;
+	margin-top: 20px;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	display: block;
+	margin-bottom: 14px;
+	text-align: center;
+	font-size: 14px;
+	color: #fff;
+	cursor: pointer;
+	background-color: #f56600;
+}
+
+
+
+.inhead {
+	width: 1130px;
+	height: 98px;
+	margin: 0 auto;
+}
+
+.logo {
+	width: 200px;
+	height: 98px;
+	background-image: url("../mall_img/logo.png");
+	background-size: 100% 100%;
+	background-position: 0 17px;
+}
+a {
+	cursor: pointer;
+}
+
+a:hover {
+	color: #f56600;
+}
+.cont {
+    position:relative;
+	background-image: url("../mall_img/xiaomi.jpg");
+	width: 100%;
+	height: 588px;
+	position: absolute;
+	left: 0;
+	top: 98px;
+	background-repeat: no-repeat;
+	background-position: top center;
+}
+
+.zi{
+    float:right;
+}
+.zi a,span{
+ font-size: 14px;
+ color: #999;
+ cursor: pointer;
+}
+.stishi{
+text-align:center;
+width:300px;
+height:40px;
+position: absolute;
+right:440px;
+top:0;
+color:#f56600;
+}
+input::-moz-placeholder {  
+　　color:#999;font-size:14px;
+　　}
+.tab_qrcon{
+	    text-align: center;
+        padding-top: 78px;
+}
+.custom_sub_txt{
+	    padding-top: 14px;
+    font-size: 14px;
+}
+.isifram{
+	width: 180px;
+	height: 180px;
+	background-color: #000000;
+	margin: 0 auto;
+	
+}
+.errorNews{
+	margin-top: 10px;
+	width: 348px;
+	height: 21px;
+}
+.icon_error{
+	    width: 14px;
+    height: 14px;
+    margin: -1px 5px 0 0;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../mall_img/error&er.gif);
+    background-position: 0 -69px;
+}
+#errorNews{
+	color: #f56600;
+	font-size: 14px;
+	
+}
+.errorColor{
+	border:2px solid #f56600;
+}

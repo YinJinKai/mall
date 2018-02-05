@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mall.order.mapper.OrderMapper">
+
+<sql id="Base_Column_List">
+	o.id,o.userid,o.news_code,o.order_count,o.adress_id,o.subtotal_price,o.isdeal,o.order_number,o.total_price
+ </sql>
+ <sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and o.id = #{id}
+			</if>
+			<if test="userid != null and userid !=''">
+				and o.userid = #{userid}
+			</if>
+			<if test="code != null and code !=''">
+				and o.news_code = #{code}
+			</if>
+			<if test="orderCount != null">
+				and o.order_count = #{orderCount}
+			</if>
+			<if test="adressId != null">
+				and o.adress_id = #{adressId}
+			</if>
+			<if test="isdeal != null">
+				and o.isdeal = #{isdeal}
+			</if>
+			<if test="orderNumber != null">
+				and o.order_number = #{orderNumber}
+			</if>
+		   <if test="totalPrice != null">
+				and o.total_price = #{totalPrice}
+			</if>
+		</trim>
+	</sql>
+	<resultMap id="BaseResultMap" type="mall.order.model.OrderModel">
+		<result column="id" property="id" />
+		<result column="createtime" property="createtime" />
+		<result column="updatetime" property="updatetime" />
+		<result column="creator" property="creator" />
+		<result column="updater" property="updater" />
+		<result column="isdelete" property="isdelete" />
+		<result column="iseffect" property="iseffect" />
+		<result column="news_name" property="newsName" />
+		<result column="news_code" property="code" />
+		<result column="price" property="price" />
+		<result column="descr" property="descr" />
+		<result column="subtotal_price" property="subtotalPrice" />
+		<result column="total_price" property="totalPrice" />
+		<result column="amount" property="amount" />
+		<result column="userid" property="userid" />
+		<result column="producer" property="producer" />
+		<result column="classify_code" property="classifyCode" />
+		<result column="old_price" property="oldPrice" />
+		<result column="url" property="url" />
+		<result column="isdeal" property="isdeal" />
+		<result column="order_number" property="orderNumber" />
+		<result column="adress_id" property="adressId" />
+		<result column="order_count" property="orderCount" />
+		<result column="telephone" property="telephone" />
+		<result column="province_code" property="provinceCode" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="complete_address" property="completeAddress" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="area" property="area" />
+	    <result column="carId" property="carId" />
+	    <result column="addressee" property="addressee" />
+	    <result column="telephone" property="telephone" />
+	</resultMap>
+<insert id="insert">
+  INSERT INTO
+  yin_mall.mall_order( userid,news_code,order_count,adress_id,subtotal_price,isdeal,order_number,createtime)
+  VALUES
+  (#{userid},#{code},#{orderCount},#{adressId},#{subtotalPrice},#{isdeal},#{orderNumber},#{createtime})
+</insert>
+
+<select id="select" resultMap="BaseResultMap" parameterType="Object">
+select
+ <include refid="Base_Column_List"/>,
+ (select  p.url from yin_mall.mall_news_picture p where n.news_code=p.news_code and  p.type=#{type}) url,
+  n.news_name,n.price
+  from yin_mall.mall_order o left join yin_mall.mall_news n on o.news_code=n.news_code
+<include refid="Example_Where_Clause"/>
+</select>
+<update id="update">
+UPDATE yin_mall.mall_order SET
+		<trim suffixOverrides=",">
+		    <if test="userid != null and userid != ''">
+				userid = #{userid},
+			</if>
+			<if test="code != null and code != ''">
+				news_code = #{code},
+			</if>
+			<if test="orderCount != null">
+				order_count = #{code},
+			</if>
+			<if test="adressId != null">
+				adress_id = #{adressId},
+			</if>
+			<if test="subtotalPrice != null">
+				subtotal_price = #{subtotalPrice},
+			</if>
+			<if test="totalPrice != null">
+				total_price = #{totalPrice},
+			</if>
+			<if test="isdeal != null">
+				isdeal = #{isdeal},
+			</if>
+			<if test="orderNumber != null">
+				order_number = #{orderNumber},
+			</if>
+		   <if test="updatetime != null">
+				updatetime = #{updatetime},
+			</if>
+		</trim>
+		where id = #{id}
+</update>
+<delete id="delete">
+DELETE FROM yin_mall.mall_order WHERE id=#{id}
+</delete>
+<sql id="Example_Where_AllClause">
+      where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and o.id = #{id}
+			</if>
+			<if test="userid != null and userid !=''">
+				and o.userid = #{userid}
+			</if>
+			<if test="code != null and code !=''">
+				and o.news_code = #{code}
+			</if>
+			<if test="orderCount != null">
+				and o.order_count = #{orderCount}
+			</if>
+			<if test="adressId != null">
+				and o.adress_id = #{adressId}
+			</if>
+			<if test="isdeal != null and isdeal !=''">
+				and o.isdeal = #{isdeal}
+			</if>
+			<if test="orderNumber != null">
+				and o.order_number = #{orderNumber}
+			</if>
+		   <if test="totalPrice != null">
+				and o.total_price = #{totalPrice}
+			</if>
+			<if test="type != null and type!=''">
+				and p.type = #{type}
+			</if>
+			<if test="startTime != null and endTime !=null">
+				and o.createtime  between #{startTime} and #{endTime}
+			</if>
+				<if test="newsName != null and newsName !=''">
+				and n.news_name  like CONCAT('%', #{newsName}, '%')
+			</if>
+		</trim>
+	</sql>
+<select id="selectAllNews" resultMap="BaseResultMap" parameterType="Object">
+ select
+ o.*,
+ n.news_name,
+ ms.addressee,
+ ms.telephone,
+ ms.userid,
+ n.price,
+ n.old_price,
+ c.id carId,
+(select mb.name from yin_mall.mall_basicdata mb where mb.basic_code = ms.province_code ) province,
+(select mb.name from yin_mall.mall_basicdata mb where mb.basic_code = ms.city_code) city,
+(select mb.name from yin_mall.mall_basicdata mb where mb.basic_code = ms.area_code) area,
+ms.complete_address,
+p.url
+from yin_mall.mall_order o 
+left join yin_mall.mall_address ms on o.adress_id=ms.address_id
+left join  yin_mall.mall_news n on n.news_code=o.news_code
+left join yin_mall.mall_news_picture p on n.news_code=p.news_code
+left join yin_mall.mall_shoppingcar c   on o.news_code=c.news_code
+  <include refid="Example_Where_AllClause"/>
+</select>
+
+<select id="selectCount" resultType="java.lang.Integer" parameterType="Object">
+		select count(1)  from  yin_mall.mall_order o 
+<include refid="Example_Where_Clause"/>
+
+</select>
+
+
+</mapper>

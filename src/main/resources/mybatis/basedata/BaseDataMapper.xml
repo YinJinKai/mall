@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mall.basedata.mapper.BaseMapper">
+	<sql id="Base_Column_List">
+		id,basic_code,name,basic_parentcode,type
+	</sql>
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="code != null">
+				and basic_code = #{code}
+			</if>
+			<if test="name != null">
+				and name = #{name}
+			</if>
+			<if test="parentcode != null">
+				and basic_parentcode = #{parentcode}
+			</if>
+			<if test="type != null">
+				and type = #{type}
+			</if>
+
+		</trim>
+	</sql>
+	<resultMap id="BaseResultMap" type="mall.basedata.model.BaseDataModel">
+		<result column="id" property="id" />
+		<result column="basic_code" property="code" />
+		<result column="name" property="name" />
+		<result column="basic_parentcode" property="parentcode" />
+		<result column="type" property="type" />
+	</resultMap>
+	<select id="selectProvince" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM yin_mall.mall_basicdata
+		WHERE basic_parentcode="0"
+	</select>
+     <select id="selectAll" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM yin_mall.mall_basicdata
+		<include refid="Example_Where_Clause" />
+	</select>
+
+
+
+
+
+
+</mapper>

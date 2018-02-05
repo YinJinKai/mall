@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.right{
+	
+	margin-top:40px;
+	margin:0 auto;
+	width:300px;
+	margin-bottom: 5px;
+	
+	
+	
+}
+.dt1{
+	font-size: 20px;
+	color: #555;
+	font-weight: bold;
+	line-height: 30px;
+	vertical-align: middle;
+}
+select{
+width:104px;
+height:40px
+	
+	
+}
+.futext{
+ width:900px;
+ height:400px;	
+ margin:0 auto;
+	
+}
+.btn3 {
+    display: block;
+    min-width: 100px;
+    height: 33px;
+    margin: -456px 818px;
+    padding: 0 10px;
+    line-height: 33px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #ff6700;
+    border: 1px solid #ff6700;
+    color: #fff;
+}

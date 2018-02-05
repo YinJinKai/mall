@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mall.system.mapper.UserMapper">
+	<resultMap type="mall.system.model.UserModel" id="UserResult">
+		<result column="id" property="id" />
+		<result column="create_time" property="createtime" />
+		<result column="update_time" property="updatetime" />
+		<result column="creator" property="creator" />
+		<result column="updater" property="updater" />
+		<result column="isdelete" property="isdelete" />
+		<result column="iseffect" property="iseffect" />
+		<result column="userid" property="userid" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="isseller" property="isseller" />
+	</resultMap>
+	<!--select 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="createtime != null and createtime != ''">
+				and create_time = #{createtime}
+			</if>
+			<if test="updatetime != null and updatetime != ''">
+				and update_time = #{updatetime}
+			</if>
+			<if test="creator != null">
+				and create_by = #{creator}
+			</if>
+			<if test="updater != null">
+				and updater = #{updater}
+			</if>
+			<if test="isdelete != null">
+				and isdelete = #{isdelete}
+			</if>
+			<if test="iseffect != null">
+				and iseffect = #{iseffect}
+			</if>
+			<if test="username != null and username != ''">
+				and username = #{username}
+			</if>
+			<if test="userid != null and userid != ''">
+				and userid = #{userid}
+			</if>
+			<if test="password != null and password != ''">
+				and password = #{password}
+			</if>
+			<if test="isseller != null and isseller !=0">
+				and isseller = #{isseller}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 注册添加用户信息 -->
+	<insert id="insertUser" parameterType="Object">
+
+		INSERT INTO
+		yin_mall.mall_user
+		(create_time,update_time,creator,updater,isdelete,iseffect,userid,username,password,isseller)
+		VALUES
+		(#{createtime},#{updatetime},#{creator},#{updater},#{isdelete},#{iseffect},#{userid},#{username},#{password},#{isseller})
+	</insert>
+	<!-- 查询用户信息 -->
+	<select id="selectUser" resultMap="UserResult" parameterType="Object">
+		SELECT * FROM yin_mall.mall_user
+		<include refid="Example_Where_Clause" />
+	</select>
+	<!-- 用户修改信息 -->
+	<update id="updateActive" parameterType="Object">
+		UPDATE yin_mall.mall_user SET
+		<trim suffixOverrides=",">
+		   <if test="userid != null and userid !='' ">
+				userid = #{userid},
+			</if>
+			<if test="updatetime != null and updatetime !='' ">
+				update_time = #{updatetime},
+			</if>
+			<if test="createtime != null and  createtime !='' ">
+				create_time = #{createtime},
+			</if>
+			<if test="updater != null and  updater !='' ">
+				updater = #{updater},
+			</if>
+			<if test="isdelete != null ">
+				isdelete = #{isdelete},
+			</if>
+			<if test="iseffect != null ">
+				iseffect = #{iseffect},
+			</if>
+			<if test="username != null and username != '' ">
+				username = #{username},
+			</if>
+			<if test="password != null and password != '' ">
+				password = #{password},
+			</if>
+			<if test="creator != null ">
+				creator = #{creator},
+			</if>
+			<if test="isseller != null">
+				isseller = #{isseller},
+			</if>
+		</trim>
+		where id = #{id}
+	</update>
+
+
+
+
+
+
+
+</mapper>

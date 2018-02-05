@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mall.goods.mapper.ProductNewsMapper">
+	<sql id="Base_Column_List">
+		n.id, n.create_time, n.update_time, n.creator, n.updater, n.isdelete, n.iseffect,
+		n.news_name,n.news_code,n.price,n.descr,n.amount,n.userid,n.producer,n.classify_code,n.old_price,n.keyType,n.detailDescr
+	</sql>
+	<resultMap id="BaseResultMap" type="mall.goods.model.ProductModel">
+		<result column="id" property="id" />
+		<result column="create_time" property="createtime" />
+		<result column="update_time" property="updatetime" />
+		<result column="creator" property="creator" />
+		<result column="updater" property="updater" />
+		<result column="isdelete" property="isdelete" />
+		<result column="iseffect" property="iseffect" />
+		<result column="news_name" property="newsName" />
+		<result column="news_code" property="code" />
+		<result column="price" property="price" />
+		<result column="descr" property="descr" />
+		<result column="amount" property="amount" />
+		<result column="userid" property="userid" />
+		<result column="producer" property="producer" />
+		<result column="classify_code" property="classifyCode" />
+		<result column="classify_two_code" property="classifyTwoCode" />
+		<result column="old_price" property="oldPrice" />
+		<result column="url" property="url" />
+		<result column="keyType" property="keyType" />
+		<result column="detailDescr" property="detailDescr" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and n.id = #{id}
+			</if>
+			<if test="createtime != null and createtime != ''">
+				and n.create_time = #{createtime}
+			</if>
+			<if test="updatetime != null and updatetime != ''">
+				and n.update_time = #{updatetime}
+			</if>
+			<if test="creator != null">
+				and n.create_by = #{creator}
+			</if>
+			<if test="updater != null">
+				and n.updater = #{updater}
+			</if>
+			<if test="isdelete != null">
+				and n.isdelete = #{isdelete}
+			</if>
+			<if test="iseffect != null">
+				and n.iseffect = #{iseffect}
+			</if>
+			<if test="newsName != null and newsName != ''">
+				and n.news_name = #{newsName}
+			</if>
+			<if test="code != null and code != ''">
+				and n.news_code = #{code}
+			</if>
+			<if test="price != null and price !=''">
+				and n.price = #{price}
+			</if>
+			<if test="descr != null and descr != ''">
+				and n.descr = #{descr}
+			</if>
+			<if test="amount != null and amount !=0">
+				and n.amount = #{amount}
+			</if>
+			<if test="userid != null and userid != ''">
+				and n.userid = #{userid}
+			</if>
+			<if test="producer != null and producer !=''">
+				and n.producer = #{producer}
+			</if>
+			<if test="classifyCode != null and classifyCode != ''">
+				and n.classify_code = #{classifyCode}
+			</if>
+			<if test="classifyTwoCode != null and classifyTwoCode != ''">
+				and n.classify_two_code = #{classifyTwoCode}
+			</if>
+			<if test="oldPrice != null and oldPrice !=''">
+				and n.old_price = #{oldPrice}
+			</if>
+			<if test="type != null">
+				and p.type = #{type}
+			</if>
+			<if test="keyWord != null and keyWord !=''">
+				and c.product_name like CONCAT('%', #{keyWord}, '%')
+			</if>
+			<if test="keyType != null and keyType  !=''">
+				and n.keyType like CONCAT('%', #{keyType}, '%')
+			</if>
+		</trim>
+	</sql>
+	<!-- 卖家添加商品信息 -->
+	<insert id="insert" parameterType="Object">
+		INSERT INTO
+		yin_mall.mall_news(create_time, update_time, creator, updater, isdelete, iseffect,
+		news_name,news_code,price,descr,amount,userid,producer,classify_code,old_price,classify_two_code,detailDescr)
+		VALUES
+		(#{createtime},#{updatetime},#{creator},#{updater},#{isdelete},#{iseffect},#{newsName},#{code},#{price},#{descr},#{amount},#{userid},#{producer},#{classifyCode},#{oldPrice},#{classifyTwoCode},#{detailDescr})
+	</insert>
+	<!-- 查询商品 -->
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="Object">
+     SELECT
+      <include refid="Base_Column_List"/> , p.url
+       FROM yin_mall.mall_news n left join yin_mall.mall_news_picture p on n.news_code=p.news_code
+        <include refid="Example_Where_Clause"/>
+	</select>
+	<delete id="delete">
+	DELETE FROM yin_mall.mall_news WHERE id=#{id}
+	</delete>
+		<update id="update">
+	UPDATE yin_mall.mall_news SET
+		<trim suffixOverrides=",">
+			<if test="updatetime != null and updatetime !='' ">
+				update_time = #{updatetime},
+			</if>
+			<if test="updater != null and  updater !='' ">
+				updater = #{updater},
+			</if>
+			<if test="isdelete != null and isdelete !=''">
+				isdelete = #{isdelete},
+			</if>
+			<if test="iseffect != null">
+				iseffect = #{iseffect},
+			</if>
+			<if test="newsName != null and newsName != ''">
+				news_name = #{newsName},
+			</if>
+			<if test="code != null and code != '' ">
+				news_code = #{code},
+			</if>
+			
+			<if test="descr != null and descr!=''">
+				descr = #{descr},
+			</if>
+			<if test="price != null and price !='' ">
+				price = #{price},
+			</if>
+			<if test="amount != null">
+				amount = #{amount},
+			</if>
+			<if test="producer != null and producer !='' ">
+				producer = #{producer},
+			</if>
+			<if test="classifyCode != null and classifyCode !='' ">
+				classify_code = #{classifyCode},
+			</if>
+			<if test="oldPrice != null and oldPrice !='' ">
+				old_price = #{oldPrice},
+			</if>
+			<if test="classifyTwoCode != null and classifyTwoCode !='' ">
+				classify_two_code = #{classifyTwoCode},
+			</if>
+			<if test="keyType != null and keyType !='' ">
+				keyType = #{keyType},
+			</if>
+			<if test="detailDescr != null and detailDescr !='' ">
+				detailDescr = #{detailDescr},
+			</if>
+		</trim>
+		where id = #{id}
+	
+	
+	</update>
+
+<select id="selectByKey" resultMap="BaseResultMap" parameterType="Object">
+SELECT 
+ <include refid="Base_Column_List"/>,p.url
+ FROM yin_mall.mall_news n 
+left join yin_mall.mall_news_picture p on n.news_code=p.news_code 
+left join yin_mall.mall_classify c on n.classify_code=c.classify_code or n.classify_two_code=c.classify_code
+<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+</select>
+<select id="selectCount" resultType="java.lang.Integer" parameterType="Object">
+		select count(1)  from yin_mall.mall_news n 
+left join yin_mall.mall_classify c on n.classify_code=c.classify_code or n.classify_two_code=c.classify_code
+		<include refid="Example_Where_Clause" />
+</select>
+<!-- 单独的商品表 -->
+<select id="selectGoods" resultMap="BaseResultMap" parameterType="Object">
+    SELECT
+      <include refid="Base_Column_List"/> 
+       FROM yin_mall.mall_news n 
+      <include refid="Example_Where_Clause"/>
+      	<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+</select>
+<select id="selectGCount" resultType="java.lang.Integer" parameterType="Object">
+		select count(1)  from yin_mall.mall_news n 
+		<include refid="Example_Where_Clause" />
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

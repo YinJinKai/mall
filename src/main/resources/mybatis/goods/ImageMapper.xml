@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mall.goods.mapper.ImageMapper">
+<sql id="Base_Column_List">
+ id,news_code,url,type
+	</sql>
+	   <resultMap id="BaseResultMap" type="mall.goods.model.ImageModel">
+		<result column="id" property="id" />
+		<result column="type" property="type" />
+		<result column="product_name" property="product_name" />
+		<result column="news_code" property="code" />
+		<result column="url" property="url" />
+	</resultMap>
+<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="url != null and url != ''">
+				and url = #{url}
+			</if>
+			<if test="code != null and code != ''">
+				and news_code = #{code}
+			</if>
+			<if test="type != null and type != ''">
+				and type = #{type}
+			</if>
+		</trim>
+	</sql>
+<insert id="insert">
+INSERT INTO yin_mall.mall_news_picture
+(news_code,url,type)
+VALUES
+(#{code},#{url},#{type})
+</insert>
+<select  id="select" resultMap="BaseResultMap" parameterType="Object">
+select
+<include refid="Base_Column_List"/>
+from yin_mall.mall_news_picture
+<include refid="Example_Where_Clause"/>
+</select>
+<update id="update">
+	UPDATE yin_mall.mall_news_picture SET
+		<trim suffixOverrides=",">
+			<if test="code != null and code != '' ">
+				news_code = #{code},
+			</if>
+			
+			<if test="url != null and url!=''">
+				url = #{url},
+			</if>
+			<if test="type != null and type !=''">
+				type = #{type},
+			</if>
+		</trim>
+		where id = #{id}
+
+</update>
+
+
+</mapper>
